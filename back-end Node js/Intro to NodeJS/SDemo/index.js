@@ -1,25 +1,16 @@
 const http = require('http');
 const router = require('./router');
+const homeController = require('./controllers/homeController')
+const catalogControler = require('./controllers/catalogController')
+const aboutController = require('./controllers/aboutController')
 
-router.registerHandler('/', (req, res) => {
-    res.write(homePage)
-    res.end();
-})
+
+router.registerHandler('/', homeController);
+router.registerHandler('/catalog', catalogControler);
+router.registerHandler('/about', aboutController);
 
 const port = 3000
 const server = http.createServer(requestHandler)
-
-const homePage = `
-<html>
-<body>
-    <div>
-    <p>Welcome to my Page</p>
-    </div>
-
-</body>
-</html>
-`
-
 
 function requestHandler(req, res) {
     console.log('>>>', req.method, req.url);
