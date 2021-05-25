@@ -1,22 +1,26 @@
+const staticFile = require('./controllers/static');
 const handlers = {};
 
-
 function match(method, url) {
+    if (method == 'GET' && url.startsWith('/static/')) {
+        return staticFile;
+    }
+
     const methods = handlers[url] || {};
-
+    
     const handler = methods[method];
-
-    if (handler == undefined){
+    
+    if (handler == undefined) {
         return defaultHandler;
-    }else{
+    } else {
         return handler;
     }
 }
 
 function registerHandler(method, url, handler) {
-    let methods = handlers[url]
+    let methods = handlers[url];
 
-    if(methods == undefined){
+    if (methods == undefined) {
         methods = {};
         handlers[url] = methods;
     }
@@ -32,8 +36,8 @@ function defaultHandler(req, res) {
 
 module.exports = {
     registerHandler,
-    get:(...params) => registerHandler('GET', ...params),
-    post:(...params) => registerHandler('POST', ...params),
-    delete:(...params) => registerHandler('DELETE', ...params),
+    get: (...params) => registerHandler('GET', ...params),
+    post: (...params) => registerHandler('POST', ...params),
+    delete: (...params) => registerHandler('DELETE', ...params),
     match
 };

@@ -10,11 +10,11 @@ function nextId() {
     return id;
 }
 
-function addItem(item){
+function addItem(item) {
     database[nextId()] = item;
 }
 
-function deleteItem(id){
+function deleteItem(id) {
     delete database[id];
 }
 
@@ -22,4 +22,4 @@ module.exports = {
     addItem,
     deleteItem,
     database
-}
+};
