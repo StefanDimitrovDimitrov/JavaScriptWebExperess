@@ -1,6 +1,10 @@
 const express = require('express');
+const handlebars = require('express-handlebars');
 
 const app = express();
+app.engine('hendlebars', handlebars());
+app.set('view engine', 'handlebars');
+
 // има значение реда на изпълнение от горе на долу, което отговаря на изискванията. 
 app.get('/', (req, res) => {
     res.send('Hello world from express!')
