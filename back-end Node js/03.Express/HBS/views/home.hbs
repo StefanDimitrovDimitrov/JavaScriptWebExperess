@@ -1,0 +1,33 @@
+<h1>It's working with handlebars</h1>
+<span>Name {{name}}</span><br>
+<span>Age {{age}}</span><br>
+<h3>Items in the pocket</h3>
+    <ul>
+        {{#each items}}
+            <li>{{this}}</li>
+        {{/each}}
+    </ul>
+<h3>Items in the other pocket</h3>
+    <ul>
+        {{#each itemsPocket2}}
+            {{>item}}
+        {{/each}}
+    </ul>
+
+<h3>Items in the third pocket</h3>
+    <ul>
+        {{#each itemsPocket3}}
+            <li>{{type}}: {{qty}}</li>
+        {{else}}
+        <li>No Items</li>
+        {{/each}}
+    </ul>
+
+    <h1>_____________LINE______________</h1>
+
+    <h3>Items in the pocket</h3>
+    <ul>
+        {{#each items}}
+            {{> item}}
+        {{/each}}
+    </ul>
