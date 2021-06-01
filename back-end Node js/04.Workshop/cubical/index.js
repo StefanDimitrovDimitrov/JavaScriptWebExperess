@@ -5,9 +5,13 @@
 // [ ] set route handlers(controller actions)
 
 const express = require('express');
+
 const hbs = require('express-handlebars');
 const { about } = require('./controllers/about');
 const { catalog } = require('./controllers/catalog');
+const { details } = require('./controllers/details');
+const { create, post } = require('./controllers/create');
+const { notFound } = require('./controllers/notFound');
 
 
 const port = 3000;
@@ -20,6 +24,11 @@ app.use('/static', express.static('static'))
 
 app.get('/', catalog )
 app.get('/about', about)
+app.get('/details/:id', details)
+app.get('/create', create)
+app.post('/create', post)
+
+app.all('*', notFound)
 
 
 
