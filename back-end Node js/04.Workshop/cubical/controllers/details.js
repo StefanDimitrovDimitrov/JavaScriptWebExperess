@@ -1,5 +1,18 @@
 module.exports = {
-    details: (req, res) => {
-        res.render('details')
+    details: async (req, res) => {
+
+        const cube = await req.storage.getById(req.params.id)
+
+        if (cube == undefinded) {
+            res.redirect('/404');
+        } else {
+            const ctx = {
+                title: 'Cubicle',
+                cube
+            }
+            res.render('details', ctx)
+        }
+
+
     }
 }
