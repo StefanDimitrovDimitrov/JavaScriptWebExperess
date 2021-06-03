@@ -3,7 +3,7 @@ module.exports = {
 
         const cube = await req.storage.getById(req.params.id)
 
-        if (cube == undefinded) {
+        if (cube == undefined) {
             res.redirect('/404');
         } else {
             const ctx = {
