@@ -5,7 +5,7 @@ const client = new MongoClient(connectionStr, {
     useUnifiedTopology: true
 });
 
-client.connect((err) =>{
+client.connect(async (err) =>{
     if (err != null){
         console.log('Something unexpected happened!');
         return;
@@ -14,8 +14,7 @@ client.connect((err) =>{
     console.log('Database connected');
 
     const db = client.db('testdb');
-    const collection = db.collection('cats')
-    collection.find({}).toArray((err, data) =>{
-        console.log(data);
-    })
-})
+    const collection = db.collection('cats');
+    const data = await collection.find({}).toArray();
+    console.log(data);
+});
