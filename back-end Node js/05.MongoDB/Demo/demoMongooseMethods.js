@@ -12,6 +12,22 @@ async function start() {
 
     console.log('Database connected on port 27017');
 
+    //find - update record
+
+    const person = await Person.findOne({ firstName: 'John', age: {$gt: 30}});
+    person.age++;
+    await person.save();
+
+    console.log(await Person.find({}));
+
+    //count
+    console.log(await Person.countDocuments({firstName: 'Peter'}))
+
+    //sort 
+
+    const people = await Person.find({}).sort({age: 1});
+    console.log(people);
+
     const  personSchema = new mongoose.Schema({
         firstName: String,
         lastName: String,
