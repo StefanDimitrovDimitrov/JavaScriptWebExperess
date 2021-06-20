@@ -27,7 +27,7 @@
     - create function start() including - app. app.get,     app.listen(PORT, ()=> console.log(`Application started at http://localhost:${PORT}`)
 
 [ ] - config files - database connect, Express middlewares(body-parser, static), external middleware(Cookie parser, bcrypt, jwt)
-    - create 3 files express.js, index.js, database.js
+    - create 4 files express.js, index.js, database.js, routers.js
 
     in index.js file:
         module.exports = {
@@ -114,8 +114,16 @@ module.exports = model('User', schema)
     - auth.js in middlewars folder
 
         
-
+[ ] Test service module and the user module
 [ ] Create mock routes for register, login and logout
+    - js file authCOntroller in folder controller 
+    const router = require('express').Router();
+
+        router.get('/register', (req, res) =>{
+
+        })
+
+module.exports = router;
 [ ] Create routes guards
 [ ] Create generic storage middleware
 

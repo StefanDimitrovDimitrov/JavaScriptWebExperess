@@ -1,7 +1,7 @@
 const User = require('../models/User');
 
 
-async function createUser(username, hashedPassword){
+async function createUser(username, hashedPassword) {
     //TODO adapt to the current project
 
     const user = new User({
@@ -22,7 +22,7 @@ async function getUserByUsername(username) {
 
 }
 
-module.export = {
+module.exports = {
     createUser,
     getUserByUsername
 };

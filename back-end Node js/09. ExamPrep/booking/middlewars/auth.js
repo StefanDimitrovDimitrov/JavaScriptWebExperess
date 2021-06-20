@@ -4,7 +4,9 @@ const jwt = require('jsonwebtoken');
 const{ TOKEN_SECRET, COOKIE_NAME } = require('../config');
 const userService = require('../services/user');
 
-function init(){
+
+// function init
+module.export = () => (req, res, next)=>{
     return function (req, res, next){
         // todo parse jwt
         // attach functions to coontext
