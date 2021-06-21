@@ -6,6 +6,7 @@ const expressConfig = require('./config/express')
 const routesConfig = require('./config/routes')
 
 const userService = require('./services/user');
+const authMiddleware = require('./middlewares/auth');
 
 
 start();
@@ -20,21 +21,40 @@ async function start(){
     app.get('/', (req, res) => res.send('It works!'));
     
     app.listen(PORT, ()=> {
-        testAuth();
         console.log(`Application started at http://localhost:${PORT}`)
     });
 }
 
 
-async function testAuth() {
-    try {
-        const result = await userService.createUser('Peter', '123123')
-        console.log(result);
+// async function testAuth() {
+//     try {
+//         const result = await userService.createUser('Peter', '123123')
+//         console.log(result);
 
-        const user = await userService.getUserByUsername('peter');
-        console.log(user);
+//         const user = await userService.getUserByUsername('peter');
+//         console.log(user);
 
-    } catch (err) {
-        console.log('Error:', err.message);
-    }
-}
+//     } catch (err) {
+//         console.log('Error:', err.message);
+//     }
+// }
+
+// async function testAuth() {
+//     const reqMock = {};
+//     const resMock = {
+//         cookie() {
+//             console.log('Set cookie',arguments);
+//         }
+//     };
+//     const nextMock = () => {};
+
+
+//     try {
+//         const auth = authMiddleware();
+//         auth(reqMock, resMock, nextMock);
+//         await reqMock.auth.register('Peter', '123asd');
+
+//     } catch (err) {
+//         console.log('Error:', err.message);
+//     }
+// }
