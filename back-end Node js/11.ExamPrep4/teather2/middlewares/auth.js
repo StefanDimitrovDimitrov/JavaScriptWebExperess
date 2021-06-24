@@ -7,7 +7,7 @@ const userService = require('../services/user');
 
 
 // function init
-module.exports = () => (req, res, next)=>{
+module.exports = () => (req, res, next) => {
     if(parseToken(req,res)){
         req.auth={
             async register(username, password) {
@@ -64,7 +64,6 @@ async function login(username, password){
 
     return generateToken(user)
 }
-
 
 
 function generateToken(userData){

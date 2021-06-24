@@ -81,5 +81,7 @@ commands:
         textarea - {{playData.description}}"
         checkbox - {{#if playData.public}}checked{{/if}}
 
-    
+ [] add custome messeages in te model. 
+
+ []   
 

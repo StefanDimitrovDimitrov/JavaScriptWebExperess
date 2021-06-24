@@ -40,6 +40,7 @@ commands:
             </section>
             {{/if}}
     - ****in register and login if name is missing we should add them!!!!
+[ ] - test   
 
 [ ] create models for project specific data
     based on the requiremnts:
@@ -49,7 +50,7 @@ commands:
     -     createdAt: {type: Data, default: Date.now },
     -     userLiked: [{type: Schema.Types.ObjectId, ref:'User', default:[] }],
     -     author: {type: Schema.Types.ObjectId, ref:'User'}
-[x] create data services and middlewares 
+[] create data services and middlewares 
     services/change tHE NAME .js
 
         - async function getAllPlays(){};

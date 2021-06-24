@@ -85,7 +85,7 @@ function parseToken(req,res){
         }catch(err){
             res.clearCookie(COOKIE_NAME);
             res.redirect('/auth/login');
-    
+            console.log('fail login');
             return false;
     
         }
@@ -93,3 +93,27 @@ function parseToken(req,res){
     return true;
 }
 
+function generateToken(userData){
+    return jwt.sign({
+        _id: userData._id,
+        username: userData.username
+    }, TOKEN_SECRET);
+
+}
+
+function parseToken(req,res){
+    const token = req.cookies[COOKIE_NAME];
+    if (token) {
+        try{
+            const userData = jwt.veryfy(token, TOKEN_SECRET);
+            req.user = userData;
+        }catch(err){
+            res.clearCookie(COOKIE_NAME);
+            res.redirect('/auth/login');
+    
+            return false;
+    
+        }
+    }
+    return true;
+}

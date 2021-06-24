@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
 router.get('/', async (req, res)=>{
-    const play = await req.storage.getAllPlays()
-    res.render('home', { play });
+    const new_MODEL = await req.storage.getAllNewS()
+    res.render('home', { new_MODEL });
 })
 
 module.exports = router;

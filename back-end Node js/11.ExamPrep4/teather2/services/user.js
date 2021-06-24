@@ -6,7 +6,8 @@ async function createUser(username, hashedPassword) {
 
     const user = new User({
         username,
-        hashedPassword
+        hashedPassword,
+        likedPlays:[]
     });
 
     await user.save();

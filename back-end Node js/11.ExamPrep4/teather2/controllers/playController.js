@@ -1,11 +1,10 @@
 const router = require('express').Router();
-const router = require('express').Router();
 const { isUser } = require('../middlewares/guards')
 const { parserError } = require('../util/parsers');
 
 
 router.get('/create', isUser(), (req, res)=>{
-    res.render('NEW_NAME/create');
+    res.render('play/create');
 });
 
 router.post('/create', isUser(), async(req,res)=>{
@@ -22,7 +21,7 @@ router.post('/create', isUser(), async(req,res)=>{
             // author: req.user._id, -->
         };
 
-        await req.storage.createNEW_NAME(playData)
+        await req.storage.createplay(playData)
 
         res.redirect('/');
     }catch (err){
@@ -40,7 +39,7 @@ router.post('/create', isUser(), async(req,res)=>{
 
             }
         };
-        res.render('NEW_NAME/create', ctx);
+        res.render('play/create', ctx);
     }
 });
 

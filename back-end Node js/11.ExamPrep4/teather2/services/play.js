@@ -1,7 +1,7 @@
-const New = require('../models/NEW_MODEL');
+const New = require('../models/Play');
 
 
-async function getAllNewS(){
+async function getAllPlays(){
     // New.find({}).lean();
 };
 
@@ -51,7 +51,7 @@ async function likePlay(playId, userId){
 
 
 module.exports = {
-    getAllNewS,
+    getAllPlays,
     getPlayById, 
     createPlay,
     editPlay,
