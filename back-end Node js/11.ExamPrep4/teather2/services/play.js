@@ -1,4 +1,4 @@
-const New = require('../models/Play');
+const Play = require('../models/Play');
 
 
 async function getAllPlays(){
@@ -20,9 +20,10 @@ async function createPlay(playData){
     // if (existing) {
     //     throw new Error('A play with this name already exists!');
     // }
+    //custom validation//
 
-    // const new_model = new New(playData)
-    // return new_model.save()
+    const play = new Play(playData)
+    return play.save()
 
 };
 

@@ -23,6 +23,8 @@ module.exports = (app) => {
             if (req.user) {
                 console.log('Known user', req.user.username);
             }
+
+            
         };
 
         next();

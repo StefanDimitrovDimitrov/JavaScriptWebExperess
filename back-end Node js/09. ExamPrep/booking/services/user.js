@@ -16,8 +16,7 @@ async function createUser(username, hashedPassword) {
 
 async function getUserByUsername(username) {
     const pattern = new RegExp(`^${username}$`, 'i');
-    const user = await User.findOneAndDelete({username: {
-        $regex: pattern} });
+    const user = await User.findOne({username: { $regex: pattern} });
     return user;
 
 }

@@ -1,8 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const{ TOKEN_SECRET, COOKIE_NAME } = require('../config');
-const router = require('../controllers/authController');
+const{ TOKEN_SECRET, COOKIE_NAME} = require('../config');
 const userService = require('../services/user');
 
 
@@ -12,21 +11,21 @@ module.exports = () => (req, res, next)=>{
         req.auth={
             async register(username, password) {
                 const token = await register(username, password);
-                res.cookies(COOKIE_NAME, token);
+                res.cookie(COOKIE_NAME, token);
             },
             async login(username, password) {
                 const token = await login(username, password);
-                res.cookies(COOKIE_NAME, token)
+                res.cookie(COOKIE_NAME, token)
             },
             logout() {
-                res.clearCookie(COOKIE_NAME)
+                res.clearCookie(COOKIE_NAME);
             }
         },
 
         next();  
-    }
+    };
 
-};
+}
 
 
 async function register(username, password){
@@ -73,18 +72,20 @@ function generateToken(userData){
 
 function parseToken(req,res){
     const token = req.cookies[COOKIE_NAME];
-    if (token) {
+    if(token) {
         try{
-            const userData = jwt.veryfy(token, TOKEN_SECRET);
+            const userData = jwt.verify(token, TOKEN_SECRET);
             req.user = userData;
+
         }catch(err){
             res.clearCookie(COOKIE_NAME);
             res.redirect('/auth/login');
-    
+            console.log('You have a problim with parseToken');
             return false;
     
         }
     }
-    return true;
-}
+    return true
+}   
+
 

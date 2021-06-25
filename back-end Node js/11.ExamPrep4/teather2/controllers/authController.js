@@ -74,6 +74,7 @@ router.post('/login',isGuest(), async (req, res) => {
 });
 
 router.get('/logout', (req, res)=>{
+    console.log('Logout');
     req.auth.logout();
     res.redirect('/');
 })

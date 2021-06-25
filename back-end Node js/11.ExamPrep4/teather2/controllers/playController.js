@@ -3,44 +3,45 @@ const { isUser } = require('../middlewares/guards')
 const { parserError } = require('../util/parsers');
 
 
-router.get('/create', isUser(), (req, res)=>{
-    res.render('play/create');
+router.get('/create',isUser(), (req, res)=>{
+    res.render('create');
 });
 
-router.post('/create', isUser(), async(req,res)=>{
+router.post('/create', isUser(), async(req, res)=>{
     console.log(req.body);
-    try {
-        const playData = {
+    // try {
+    //     const playData = {
 
-            NEW_REQUIREMENTS
+    //         NEW_REQUIREMENTS
 
-            // <!-- title: req.body.title,
-            // description: req.body.description,
-            // imageUrl: req.body.imageUrl,
-            // public: Boolean(req.body.public),
-            // author: req.user._id, -->
-        };
+    //         // <!-- title: req.body.title,
+    //         // description: req.body.description,
+    //         // imageUrl: req.body.imageUrl,
+    //         // public: Boolean(req.body.public),
+    //         // author: req.user._id, -->
+    //     };
 
-        await req.storage.createplay(playData)
+    //     await req.storage.createplay(playData)
 
-        res.redirect('/');
-    }catch (err){
-        console.log(err.message);
+    //     res.redirect('/');
+    // }catch (err){
+    //     console.log(err.message);
 
-        const ctx = {
-            errors: parserError(err),
-            playData: {
-                NEW_REQUIREMENTS
+    //     const ctx = {
+    //         errors: parserError(err),
+    //         playData: {
+    //             NEW_REQUIREMENTS
 
-                // <!-- title: req.body.title,
-                // description: req.body.description,
-                // imageUrl: req.body.imageUrl,
-                // public: Boolean(req.body.public), -->
+    //             // <!-- title: req.body.title,
+    //             // description: req.body.description,
+    //             // imageUrl: req.body.imageUrl,
+    //             // public: Boolean(req.body.public), -->
 
-            }
-        };
-        res.render('play/create', ctx);
-    }
+    //         }
+    //     };
+        const ctx = {}
+        res.redirect('/', ctx);
+    // }
 });
 
 router.get('/details/:id', async (req, res)=>{

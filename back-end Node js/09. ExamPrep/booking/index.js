@@ -21,6 +21,7 @@ async function start(){
     app.get('/', (req, res) => res.send('It works!'));
     
     app.listen(PORT, ()=> {
+        testAuth();
         console.log(`Application started at http://localhost:${PORT}`)
     });
 }
@@ -39,22 +40,22 @@ async function start(){
 //     }
 // }
 
-// async function testAuth() {
-//     const reqMock = {};
-//     const resMock = {
-//         cookie() {
-//             console.log('Set cookie',arguments);
-//         }
-//     };
-//     const nextMock = () => {};
+async function testAuth() {
+    const reqMock = {};
+    const resMock = {
+        cookie() {
+            console.log('Set cookie',arguments);
+        }
+    };
+    const nextMock = () => {};
 
 
-//     try {
-//         const auth = authMiddleware();
-//         auth(reqMock, resMock, nextMock);
-//         await reqMock.auth.register('Peter', '123asd');
+    try {
+        const auth = authMiddleware();
+        auth(reqMock, resMock, nextMock);
+        await reqMock.auth.register('pesho', '023asd');
 
-//     } catch (err) {
-//         console.log('Error:', err.message);
-//     }
-// }
+    } catch (err) {
+        console.log('Error:', err.message);
+    }
+}  

@@ -1,5 +1,5 @@
 function isUser(){
-    (req, res, next)=>{
+    return (req, res, next)=>{
         if (req.user){
             next();
         }else{

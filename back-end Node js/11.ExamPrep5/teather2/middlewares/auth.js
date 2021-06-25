@@ -79,7 +79,7 @@ function parseToken(req,res){
     const token = req.cookies[COOKIE_NAME];
     if (token) {
         try{
-            const userData = jwt.veryfy(token, TOKEN_SECRET);
+            const userData = jwt.verify(token, TOKEN_SECRET);
             req.user = userData;
             res.locals.user = userData;
         }catch(err){
