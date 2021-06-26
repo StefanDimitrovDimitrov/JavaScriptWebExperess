@@ -1,9 +1,9 @@
-const NEWService = require('../services/newMODEL');
+const PlayService = require('../services/play');
 
 module.exports = () => (req,res,next) => {
 
     req.storage = {
-        ...NEWService
+        ...PlayService
     };
 
     next()

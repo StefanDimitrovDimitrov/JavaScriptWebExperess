@@ -12,9 +12,9 @@ router.post(
     isGuest(),
     body('username')
         .isLength({ min: 3 }).withMessage('Username must be at least 3 characters long').bail()
-        .isAlphanumeric().withMessage('Password should consist only english letters and digits'),
+        .isAlphanumeric().withMessage('Username should consist only english letters and digits'),
     body('password')
-        .isLength({ min: 3 }).withMessage('Username must be at least 3 characters long').bail()
+        .isLength({ min: 3 }).withMessage('Password must be at least 3 characters long').bail()
         .isAlphanumeric().withMessage('Password should consist only english letters and digits'),
     body('rePass').custom((value, { req }) => {
         if (value != req.body.password) {
@@ -22,12 +22,13 @@ router.post(
         }
         return true;
     }),
+    
     async (req, res) => {
         const { errors }  = validationResult(req);
 
         try{
             if(errors.length > 0){
-                throw new Error('Validation error');
+                throw new Error(Object.values(errors).map(e => e.msg).join('\n'));
             }
 
             await req.auth.register(req.body.username, req.body.password);
@@ -36,13 +37,11 @@ router.post(
         }catch(err) {
             console.log(err);
             const ctx = {
-                errors:err.message,
+                errors:err.message.split('\n'),
                 userData:{
-                    username: req.body.username
+                username: req.body.username
                 }
             };
-
-
             res.render('register', ctx)
         }
     }

@@ -12,15 +12,17 @@ const schema = new Schema({
         type: String, 
         required: [true, 'Title is required'] },
     public: {
-        type: String, 
-        required: true },
+        type: Boolean, 
+        default: false },
     createdAt: {
-        type: String, 
-        required: true },
+        type: Date, 
+        default: Date.now },
     userLiked: [{
         type: Schema.Types.ObjectId, 
         ref:'User', 
-        default:[] }]
+        default:[] }],
+    author: 
+    {type: Schema.Types.ObjectId, ref:'User'}
 
 
 });

@@ -1,4 +1,4 @@
-const playService = require('../services/Play');
+const playService = require('../services/play');
 
 module.exports = () => (req,res,next) => {
     req.storage = {

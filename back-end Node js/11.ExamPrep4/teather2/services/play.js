@@ -2,11 +2,15 @@ const Play = require('../models/Play');
 
 
 async function getAllPlays(){
-    // New.find({}).lean();
+    // return Play.find({}).lean();
+    console.log('find_all');
+    return Play.find({public: true}).sort({createdAt: -1}).lean();
 };
 
 async function getPlayById(id){
-    // return New.findById(id).populate('usersLiked').lean();
+    // return Play.findById(id).lean()
+    console.log('find one');
+    return Play.findById(id).populate('usersLiked').lean();
 
 };
 
@@ -14,12 +18,13 @@ async function createPlay(playData){
 
     //custom valdation//
 
-    // const pattern = new ReqExp(`^${playdata.title}$`, 'i');
-    // const existing = await New.findOne({ title: {$regex: pattern }});
+    const pattern = new RegExp(`^${playData.title}$`, 'i');
+    const existing = await Play.findOne({ title: {$regex: pattern }});
+    console.log(existing);
 
-    // if (existing) {
-    //     throw new Error('A play with this name already exists!');
-    // }
+    if (existing) {
+        throw new Error('A play with this name already exists!');
+    }
     //custom validation//
 
     const play = new Play(playData)
@@ -28,25 +33,25 @@ async function createPlay(playData){
 };
 
 async function editPlay(id, playData){
-    // const play = await Play.findById(id)
+    const play = await Play.findById(id)
 
-    // play.title = playData.title;
-    // play.description = playData.description;
-    // play.imageUrl = playData.imageUrl;
-    // play.public = Boolean(playData.public);
+    play.title = playData.title;
+    play.description = playData.description;
+    play.imageUrl = playData.imageUrl;
+    play.public = Boolean(playData.public);
 
-    // return play.save()
+    return play.save()
 }
 
 async function deletePlay(id){
-    // return New.findByIdAndDelete(id)
+    return Play.findByIdAndDelete(id)
 };
 
 async function likePlay(playId, userId){
-    // const play = await Play.findById(playId);
+    const play = await Play.findById(playId);
 
-    // play.userLiked.push(userId);
-    // return play.save();
+    play.userLiked.push(userId);
+    return play.save();
 
 }
 
