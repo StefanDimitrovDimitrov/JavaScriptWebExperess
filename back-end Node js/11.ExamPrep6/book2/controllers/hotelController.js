@@ -5,24 +5,23 @@ const { parserError } = require('../util/parser');
 
 
 router.get('/create', isUser(), (req, res)=>{
-    res.render('hotel/create');
+    res.render('hotels/create');
 });
 
 router.post('/create', isUser(), async(req,res)=>{
     console.log(req.body);
     try {
-        const playData = {
+        const hotelData = {
 
-            NEW_REQUIREMENTS
-
-            // <!-- title: req.body.title,
-            // description: req.body.description,
-            // imageUrl: req.body.imageUrl,
-            // public: Boolean(req.body.public),
-            // author: req.user._id, -->
+            name: req.body.name,
+            city: req.body.city,
+            imageUrl: req.body.imageUrl,
+            rooms: req.body.rooms,
+            bookedBy: [],
+            owner: req.user._id,
         };
 
-        await req.storage.createHotel(playData)
+        await req.storage.createHotel(hotelData)
 
         res.redirect('/');
     }catch (err){
@@ -31,71 +30,67 @@ router.post('/create', isUser(), async(req,res)=>{
         const ctx = {
             errors: parserError(err),
             hotelData: {
-                NEW_REQUIREMENTS
-
-                // <!-- title: req.body.title,
-                // description: req.body.description,
-                // imageUrl: req.body.imageUrl,
-                // public: Boolean(req.body.public), -->
-
+                name: req.body.name,
+                city: req.body.city,
+                imageUrl: req.body.imageUrl,
+                rooms:req.body.rooms,
             }
         };
-        res.render('hotel/create', ctx);
+        res.render('hotels/create', ctx);
     }
 });
 router.get('/details/:id', async (req, res)=>{
-    // try{
-    //     const hotel = await req.storage.getHotelById(req.params.id);
-    //     hotel.hasUser = Boolean(req.user);
-    //     hotel.isAuthor = req.user && req.user._id == hotel.author;
-    //     console.log(play.isAuthor);
-    //     hotel.liked = req.user && play.userLiked.find(u => u._id == req.user._id);
-    //     res.render('hotel/details', { play });
-    // }catch (err) {
-    //     console.log(err.message);
-    //     res. redirect('/404');
-    // }
+    try{
+        const hotel = await req.storage.getHotelById(req.params.id);
+        hotel.hasUser = Boolean(req.user);
+        hotel.isOwner = req.user && req.user._id == hotel.owner;
+        // console.log(hotel.isAuthor);
+        hotel.isBooked = req.user && hotel.bookedBy.find(u => u._id == req.user._id);
+        res.render('hotels/details', { hotel });
+    }catch (err) {
+        console.log(err.message);
+        res. redirect('/404');
+    }
 });
 
 router.get('/edit/:id', isUser(), async(req, res)=>{
-    // try {
-    //     const play = await req.storage.getPlayById(req.params.id);
-    //     if (play.author != req.user._id) {
-    //         throw new Error('Cannot edit play you haven\'t created');
-    //     }
-    //     res.render('play/edit', { play });
-    // }catch(err){
-    //     console.log(err.message);
-    //     res.redirect('/play/details/' + req.params.id)
-    // }
+    try {
+        const hotelData = await req.storage.getHotelById(req.params.id);
+        if (hotelData.owner != req.user._id) {
+            throw new Error('Cannot edit play you haven\'t created!');
+        }
+        res.render('hotels/edit', { hotelData });
+    }catch(err){
+        console.log(err.message);
+        res.redirect('/hotels/details/' + req.params.id)
+    }
 })
 
 router.post('/edit/:id', isUser(), async (req, res)=>{
-    // try {
-    //     const play = await req.storage.getPlayById(req.params.id);
-    //     if (play.author != req.user._id) {
-    //         throw new Error('Cannot edit play you haven\'t created');
-    //     }
+    try {
+        const hotelData = await req.storage.getHotelById(req.params.id);
+        if (hotelData.owner != req.user._id) {
+            throw new Error('Cannot edit play you haven\'t created!');
+        }
 
-    //     await req.storage.editPlay(req.params.id, req.body);
+        await req.storage.editHotel(req.params.id, req.body);
     
-    //     res.redirect('/');
-    // } catch (err) {
+        res.redirect('/');
+    } catch (err) {
 
-    //     const ctx = {
-    //         errors: parseError(err),
-    //         play: {
-    //             _id: req.params.id,
-    //             title: req.body.title,
-    //             description: req.body.description,
-    //             imageUrl: req.body.imageUrl,
-    //             public: Boolean(req.body.public),
-    //         }
-        
-    //     };
+        const ctx = {
+            errors: parserError(err),
+            hotelData: {
+                _id: req.params.id,
+                name: req.body.name,
+                city: req.body.city,
+                imageUrl: req.body.imageUrl,
+                rooms:req.body.rooms,
+            }
+        };
 
-    //     res.render('play/edit', ctx);
-    // }
+        res.render('hotels/edit', ctx);
+    }
 });
 
 router.get('/delete/:id', async (req,res)=>{

@@ -1,18 +1,19 @@
-const hotel = require('../models/Hotel');
+const Hotel = require('../models/Hotel');
 
 
 async function getAllHotels(){
-    // // return Play.find({}).lean();
+    return Hotel.find({}).lean();
     // return Hotel.find({public: true}).sort({createdAt: -1}).lean();
 };
 
 async function getHotelById(id){
-    // // return Play.findById(id).lean()
+    const hotel = await Hotel.findById(id).lean()
+    return  hotel
     // return Hotel.findById(id).populate('usersLiked').lean();
 
 };
 
-async function createHotel(playData){
+async function createHotel(hotelData){
 
     // const pattern = new RegExp(`^${playData.title}$`, 'i');
     // const existing = await Play.findOne({ title: {$regex: pattern }});
@@ -22,20 +23,21 @@ async function createHotel(playData){
     //     throw new Error('A play with this name already exists!');
     // }
 
-    // const play = new Play(playData)
-    // return play.save()
+    const hotel = new Hotel(hotelData)
+    await hotel.save()
+    return hotel;
 
 };
 
-async function editHotel(id, playData){
-    // const play = await Play.findById(id)
+async function editHotel(id, hotelData){
+    const hotel = await Hotel.findById(id)
 
-    // play.title = playData.title;
-    // play.description = playData.description;
-    // play.imageUrl = playData.imageUrl;
-    // play.public = Boolean(playData.public);
-
-    // return play.save()
+    hotel.name= hotelData.name;
+    hotel.city= hotelData.city;
+    hotel.imageUrl= hotelData.imageUrl;
+    hotel.rooms= hotelData.rooms;
+    
+    return hotel.save()
 }
 
 async function deleteHotel(id){

@@ -23,7 +23,16 @@ async function getUserByUsername(username) {
 
 }
 
+async function getUserByEmail(username) {
+    const pattern = new RegExp(`^${email}$`, 'i');
+    const email = await User.findOne({email: {
+        $regex: pattern} });
+    return email;
+
+}
+
 module.exports = {
     createUser,
-    getUserByUsername
+    getUserByUsername,
+    getUserByEmail
 };

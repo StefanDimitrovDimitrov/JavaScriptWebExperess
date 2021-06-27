@@ -14,8 +14,8 @@ module.exports = () => (req, res, next)=>{
                 const token = await register(username, email, password);
                 res.cookie(COOKIE_NAME, token);
             },
-            async login(username,email, password) {
-                const token = await login(username,email, password);
+            async login(username, password) {
+                const token = await login(username, password);
                 res.cookie(COOKIE_NAME, token)
             },
             logout() {
@@ -30,13 +30,18 @@ module.exports = () => (req, res, next)=>{
 
 
 async function register(username, email, password){
-    //todo adapt parameters to project
 
-    const existing = await userService.getUserByUsername(username);
+    const existUsername = await userService.getUserByUsername(username);
+    // const existEmail = await userService.getUserByEmail(email);
 
-    if(existing) {
-        throw new Error('Username is taken!');
-    }
+    // if(existUsername) {
+    //     throw new Error('Username is taken!');
+    // } else if (existEmail){
+    //     throw new Error('Email is taken!');
+    // }
+
+
+
     console.log(`>>>>${password}`);
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await userService.createUser(username, email, hashedPassword);
@@ -53,9 +58,11 @@ async function login(username, password){
         err.type = 'credential';
         throw err;
     }
-
+    console.log(password);
+    console.log(user);
     const hasMatch = await bcrypt.compare(password, user.hashedPassword);
 
+    console.log(hasMatch);
     if(!hasMatch) {
         const err =  new Error('Incorect password');
         err.type = 'credential';
@@ -83,8 +90,6 @@ function parseToken(req,res){
             const userData = jwt.verify(token, TOKEN_SECRET);
             req.user = userData;
             res.locals.user = userData;
-            req.email = userData;
-            req.locals.email = userData
         }catch(err){
             res.clearCookie(COOKIE_NAME);
             res.redirect('/auth/login');

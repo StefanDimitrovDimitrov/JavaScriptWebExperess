@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
 router.get('/', async (req, res)=>{
-    const hotel = await req.storage.getAllHotels()
-    res.render('home', { hotel });
+    const hotels = await req.storage.getAllHotels()
+    res.render('home', { hotels });
 })
 
 module.exports = router;

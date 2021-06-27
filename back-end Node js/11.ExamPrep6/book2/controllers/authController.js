@@ -3,7 +3,7 @@ const {body, validationResult } = require('express-validator')
 const { isGuest } = require('../middlewares/guards');
 
 router.get('/register',isGuest(), (req, res) =>{
-    res.render('register');
+    res.render('user/register');
 
 });
 
@@ -11,11 +11,11 @@ router.post(
     '/register',
     isGuest(),
     body('username'),
-    body('email'),    
+    body('email').isEmail().withMessage('Invalid email').bail(),
     body('password')
-        .isLength({ min: 5 }).withMessage('Username must be at least 5 characters long').bail()
+        .isLength({ min: 5 }).withMessage('Password must be at least 5 characters long').bail()
         .isAlphanumeric().withMessage('Password should consist only english letters and digits'),
-    body('rePassword').custom((value, { req }) => {
+    body('rePass').custom((value, { req }) => {
         if (value != req.body.password) {
             throw new Error('Passwords don\t match');
         }
@@ -43,19 +43,19 @@ router.post(
             };
 
 
-            res.render('register', ctx)
+            res.render('user/register', ctx)
         }
     }
 );
 
 router.get('/login',isGuest(), (req, res) => {
-    res.render('login')
+    res.render('user/login')
 
 });
 
 router.post('/login',isGuest(), async (req, res) => {
     try {
-        await req.auth.login(req.body.username,req.body.email, req.body.password);
+        await req.auth.login(req.body.username, req.body.password);
         res.redirect('/') //TODO change redirect location
     } catch (err) {
         console.log(err.message);
@@ -67,10 +67,9 @@ router.post('/login',isGuest(), async (req, res) => {
             errors,
             userData: {
                 username: req.body.username,
-                email: req.body.email
             }
         };
-        res.render('login', ctx);
+        res.render('user/login', ctx);
     }
 });
 

@@ -24,9 +24,6 @@ commands:
     [] in login form 
             - add =  value="{{userData.username}}"
             - action="/auth/login" method="POST"
-    [] in authController.js
-        - add: throw new Error(Object.values(errors).map(e => e.msg).join('\n'));
-        - errors:err.message.split('\n')
     in layouts/main.hbs
             {{#if errors}}
             <section class="notifications error">
