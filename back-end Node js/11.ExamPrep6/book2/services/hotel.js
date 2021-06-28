@@ -41,7 +41,7 @@ async function editHotel(id, hotelData){
 }
 
 async function deleteHotel(id){
-    // return Play.findByIdAndDelete(id)
+    return Hotel.findByIdAndDelete(id)
 };
 
 // async function likePlay(playId, userId){

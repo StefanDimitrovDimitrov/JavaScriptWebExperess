@@ -94,18 +94,21 @@ router.post('/edit/:id', isUser(), async (req, res)=>{
 });
 
 router.get('/delete/:id', async (req,res)=>{
-    // try {
-    //     const play = await req.storage.deletePlay(req.params.id);
+    try {
+        const hotel = await req.storage.deleteHotel(req.params.id);
+        console.log(hotel);
 
-    //     if (play.author != req.user._id) {
-    //         throw new Error('Cannot delete play you haven\'t created');
-    //     }
+        if (hotel.owner != req.user._id) {
+            throw new Error('Cannot delete hotel you haven\'t created');
+        }
 
-    //     res.redirect('/');
-    // } catch (err) {
-    //     console.log(err.message);
-    //     res.redirect('/play/details/' + req.params.id); 
-    // }
+        console.log('You delete the hotel');
+
+        res.redirect('/');
+    } catch (err) {
+        console.log(err.message);
+        res.redirect('/hotels/details/' + req.params.id); 
+    }
 })
 
 // router.get('/like/:id', isUser(), async(req, res)=>{
