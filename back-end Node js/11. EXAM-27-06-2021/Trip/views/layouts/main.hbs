@@ -15,12 +15,14 @@
         <p>Error message - 2</p>
     </div> -->
             {{#if errors}}
-            <section class="notifications error">
+            <div class="error">
                 {{#each errors}}
             <p>{{this}}</p>
                 {{/each}}
-            </section>
+            </div>
             {{/if}}
+
+            
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">

@@ -39,14 +39,14 @@
             {{/if}}
     
     - ****in register and login if name is missing we should add them!!!!
-[] - test   
+[x] - test   
 
-[] create models for project specific data
-    [] Addapt User models
-        [] in models/User.js - add:
-        [] *likedPlays:[{type: Schema.Types.ObjectId, ref: 'Play' }]
-        [] change the name NewMODEL.js with the new name 
-        []*add likedPlays in const user = new User({}) in services/users.js as empty list
+[x] create models for project specific data
+    [x] Addapt User models
+        [x] in models/User.js - add:
+        [x] *likedPlays:[{type: Schema.Types.ObjectId, ref: 'Play' }]
+        [x] change the name NewMODEL.js with the new name 
+        [x]*add likedPlays in const user = new User({}) in services/users.js as empty list
 
     [] Based on the requiremnts:
         example: 

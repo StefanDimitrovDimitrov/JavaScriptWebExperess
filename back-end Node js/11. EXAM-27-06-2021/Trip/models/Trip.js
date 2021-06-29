@@ -1,8 +1,19 @@
 const { Schema, model } = require('mongoose');
 
+
 const schema = new Schema({
-    title: {type: String, required: true },
+    startPoint: {type: String, required: true },
+    endPoint: {type: String, required: true },
+    date: {type: Date, default: Date.now },
+    time: { type: Date, default: Date.now },
+    carImg:{type: String, required: true },
+    carBrand:{type: String, required: true },
+    Seats:{type: Number, required: true },
+    price:{type: Number, required: true },
+    description:{type: String, required: true },
+    creator:{type: Schema.Types.ObjectId, ref:'User' },
+    biddies:[{type: Schema.Types.ObjectId, ref:'User',default:[]}],
 
 });
 
-module.exports = model('NEW_MODEL', schema)
+module.exports = model('Trip', schema)
