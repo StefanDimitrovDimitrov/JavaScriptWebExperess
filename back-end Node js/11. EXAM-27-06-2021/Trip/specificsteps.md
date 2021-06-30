@@ -48,7 +48,7 @@
         [x] change the name NewMODEL.js with the new name 
         [x]*add likedPlays in const user = new User({}) in services/users.js as empty list
 
-    [] Based on the requiremnts:
+    [ь] Based on the requiremnts:
         example: 
          text: {type: String, required: true },
          number: { type: Number, min: 1, max: 6 },

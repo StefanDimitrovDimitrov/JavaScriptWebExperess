@@ -12,17 +12,17 @@ async function getTripById(id){
 
 };
 
-async function createTrip(playData){
+async function createTrip(tripData){
 
-    const pattern = new RegExp(`^${playData.title}$`, 'i');
-    const existing = await Trip.findOne({ title: {$regex: pattern }});
-    console.log(existing);
+    // const pattern = new RegExp(`^${tripData._id}$`, 'i');
+    // const existing = await Trip.findOne({ _id: {$regex: pattern }});
+    // console.log(existing);
 
-    if (existing) {
-        throw new Error('A trip with this name already exists!');
-    }
+    // if (existing) {
+    //     throw new Error('A trip with this name already exists!');
+    // }
 
-    const trip = new Trip(playData)
+    const trip = new Trip(tripData)
     return trip.save()
 
 };

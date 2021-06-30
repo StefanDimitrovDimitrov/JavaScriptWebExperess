@@ -4,6 +4,6 @@ const homeController = require('../controllers/homeController')
 
 module.exports = (app)=> {
     app.use('/auth', authController);
-    app.use('/trip', tripController);
+    app.use('/trips', tripController);
     app.use('/', homeController)
 }
