@@ -30,10 +30,15 @@ async function createTrip(tripData){
 async function editTrip(id, tripData){
     const trip = await Trip.findById(id)
 
-    // play.title = playData.title;
-    // play.description = playData.description;
-    // play.imageUrl = playData.imageUrl;
-    // play.public = Boolean(playData.public);
+    trip.startPoint = tripData.startPoint
+    trip.endPoint = tripData.endPoint
+    trip.date = tripData.date
+    trip.time = tripData.time
+    trip.imgUrl = tripData.imgUrl
+    trip.carBrand = tripData.carBrand
+    trip.seats = tripData.seats
+    trip.price = tripData.price
+    trip.description = tripData.description
 
     return trip.save()
 }

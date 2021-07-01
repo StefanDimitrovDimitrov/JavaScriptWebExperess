@@ -12,7 +12,7 @@ const schema = new Schema({
     price:{type: Number, required: true },
     description:{type: String, required: true },
     creator:{type: Schema.Types.ObjectId, ref:'User' },
-    biddies:[{type: Schema.Types.ObjectId, ref:'User',default:[]}],
+    biddies:[{type: Schema.Types.ObjectId, ref:'User', default:[]}],
 
 });
 

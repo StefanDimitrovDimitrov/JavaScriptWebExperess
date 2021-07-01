@@ -1,0 +1,9 @@
+[x] login
+[x] register
+[x] Logout
+[x] home
+[x] createTriple
+[] editTrip
+[] deleteTrip
+[x] details
+[x] shared/catalog/trip
