@@ -10,11 +10,13 @@ router.get('/create', isUser(), (req, res)=>{
 
 router.post('/create', isUser(), async(req,res)=>{
     console.log(req.body);
+    
+
     try {
         const tripData = {
             startPoint: req.body.startPoint,
             endPoint: req.body.endPoint,
-            date: req.body.date,
+            date: new Date(req.body.date).toLocaleString(),
             time: req.body.time,
             imgUrl:req.body.imgUrl,
             carBrand: req.body.carBrand,
@@ -49,6 +51,14 @@ router.post('/create', isUser(), async(req,res)=>{
         res.render('trips/create', ctx);
     }
 });
+
+router.get('/shared', async(req,res)=>{
+    const trips = await req.storage.getAllTrips()
+    trips.forEach(trip => trip.date =(trip.date.getFullYear() + '-' + ('0' + (trip.date.getMonth()+1)).slice(-2) + '-' + ('0' + trip.date.getDate()).slice(-2)))
+    res.render('trips/shared', { trips });
+
+})
+
 router.get('/details/:id', async (req, res)=>{
     // try{
     //     const play = await req.storage.getPlayById(req.params.id);
